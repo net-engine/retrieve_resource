@@ -1,2 +1,2 @@
 require 'retrieve_resource'
-ActionController::Base.send :include, Retrieve
+ActionController::Base.send :include, RetrieveResource
