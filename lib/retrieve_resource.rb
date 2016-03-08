@@ -11,7 +11,7 @@ module RetrieveResource
       options[:param] ||= "#{object_name.to_s.camelcase.pluralize}Controller" == name.demodulize ? 'id' : "#{object_name}_id"
       options[:class_name] = options[:class_name].to_s
 
-      find_options = options.reject { |k, v| !ActiveRecord::Base.method(:instance_eval).call('VALID_FIND_OPTIONS').include?(k) }
+      find_options = options.reject { |k, v| !ActiveRecord::Relation::VALUE_METHODS.include?(k) }
 
       param_method_name = "retrieve_resource_by_param_#{options[:param]}".intern
       object_method_name = "retrieve_resource_#{object_name}".intern
