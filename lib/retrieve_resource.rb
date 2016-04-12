@@ -11,8 +11,6 @@ module RetrieveResource
       options[:param] ||= "#{object_name.to_s.camelcase.pluralize}Controller" == name.demodulize ? 'id' : "#{object_name}_id"
       options[:class_name] = options[:class_name].to_s
 
-      find_options = options.reject { |k, v| !ActiveRecord::Relation::VALUE_METHODS.include?(k) }
-
       param_method_name = "retrieve_resource_by_param_#{options[:param]}".intern
       object_method_name = "retrieve_resource_#{object_name}".intern
 
@@ -24,7 +22,7 @@ module RetrieveResource
           association_method_name = options[:as] || object_name.pluralize.underscore
 
           begin
-            __send__(parent_method_name).__send__(association_method_name).__send__(options[:find_method], value, find_options.dup)
+            __send__(parent_method_name).__send__(association_method_name).__send__(options[:find_method], value)
           rescue ActiveRecord::RecordNotFound => e
             raise e if options[:whiny]
           end
@@ -43,7 +41,7 @@ module RetrieveResource
         define_method(class_method_name) do |value|
           begin
             klass = options[:class_name].camelcase.constantize
-            klass.__send__(options[:find_method], value, find_options.dup)
+            klass.__send__(options[:find_method], value)
           rescue ActiveRecord::RecordNotFound => e
             raise e if options[:whiny]
           end
