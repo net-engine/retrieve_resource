@@ -64,7 +64,7 @@ module RetrieveResource
       EOT
 
       filter_options = options.reject { |key, value| !%w(only except).include?(key.to_s) }
-      append_before_filter object_method_name, filter_options
+      append_before_action object_method_name, filter_options
     end
   end
 end
