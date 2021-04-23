@@ -10,7 +10,6 @@ Gem::Specification.new do |s|
   s.email = 'info@netengine.com.au'
   s.homepage = 'http://github.com/net-engine/retrieve_resource'
 
-  s.has_rdoc = false
   s.rdoc_options = ['--main', 'README.rdoc']
   s.rdoc_options << '--inline-source' << '--charset=UTF-8'
   s.extra_rdoc_files = ['MIT-LICENSE']
